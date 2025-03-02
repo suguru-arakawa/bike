@@ -1,0 +1,16 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/memory?currentSchema=public  # PostgreSQLの接続URL
+    username: postgres  # PostgreSQLのユーザー名
+    password: postgres  # PostgreSQLのパスワード
+    driver-class-name: org.postgresql.Driver  # PostgreSQLのJDBCドライバー
+    hikari:
+      maximum-pool-size: 10  # 最大コネクションプール数（任意）
+  jpa:
+    hibernate:
+      ddl-auto: update  # データベーススキーマの自動更新（update, create, create-drop, noneなど）
+    show-sql: true  # 実行されるSQLをコンソールに表示（開発時のみ推奨）
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect  # PostgreSQLの方言
+        format_sql: true  # SQLを見やすく整形
