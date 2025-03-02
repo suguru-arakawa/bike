@@ -1,0 +1,29 @@
+apiVersion: skaffold/v4beta9
+kind: Config
+metadata:
+  name: demo-db
+build:
+  artifacts:
+    - image: docker-registry.demo/robin/demo-db  # イメージ名を指定
+      context: ./docker  # dockerディレクトリのパスが正しいか確認
+  local:
+    push: true
+    useBuildkit: true
+manifests:
+  helm:
+    releases:
+      - name: demo-db
+        chartPath: ./helm/deployment  # チャートパスが正しいか確認
+        setValues:
+          revision: latest
+        setValueTemplates:
+          image: '{{.IMAGE_NAME}}'  # プレースホルダを修正
+deploy:
+  helm:
+    releases:
+      - name: demo-db
+        chartPath: ./helm/deployment  # 同じくチャートパスが正しいか確認
+        setValues:
+          revision: latest
+        setValueTemplates:
+          image: '{{.IMAGE_NAME}}'  # プレースホルダを修正

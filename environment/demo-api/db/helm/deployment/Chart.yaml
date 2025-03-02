@@ -1,0 +1,4 @@
+name: demo-db
+sources:
+  - https://bitbucket.org/uzabase/robin/environment/demo-api/db
+version: 1.0.0

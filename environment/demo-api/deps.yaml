@@ -1,0 +1,4 @@
+apiVersion: skaffold/v4beta9
+kind: config
+requires:
+  - path: ./db/skaffold.yaml

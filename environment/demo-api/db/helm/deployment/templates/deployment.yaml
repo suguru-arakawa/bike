@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+metadata:
+  name: demo-db
+kind: Deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: demo-db
+  template:
+    metadata:
+      annotations:
+        sidecar.istio.io/inject: "false"
+      labels:
+        name: demo-db
+        revision: {{ .Values.revision }}
+    spec:
+      containers:
+        - name: demo-db
+          image: {{ .Values.revision }}
+          imagePullPolicy: {{ .Values.imagePullPolicy }}
+          ports:
+          - containerPort: 5432
+          resources:
+            limits:
+              memory: 1Gi
+            request:
+              memory: 0.5Gi
+          env:
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: demo-db-password
+                  key: POSTGRES_PASSWORD
